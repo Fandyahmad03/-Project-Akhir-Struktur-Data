@@ -1,0 +1,193 @@
+/* === Global Styles === */
+:root {
+  --bg: #f6fdf9;
+  --card: #ffffff;
+  --text: #1c1c1c;
+  --primary: #3cc99a;
+  --accent: #ff5e5e;
+  --border-radius: 12px;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+/* === Layout === */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e6ffe9;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #cceede;
+}
+
+.clock {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.main {
+  max-width: 640px;
+  margin: 2rem auto;
+  background: var(--card);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 1rem 0;
+  font-weight: 500;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+li a {
+  text-decoration: none;
+  color: var(--primary);
+  display: inline-block;
+}
+
+li:hover {
+  transform: scale(1.03);
+  color: var(--accent);
+}
+
+/* === Info Boxes === */
+.tip-box {
+  background: #e8fced;
+  padding: 0.8rem 1rem;
+  border-left: 4px solid var(--primary);
+  margin: 1rem 0;
+  font-style: italic;
+  border-radius: var(--border-radius);
+  color: #444;
+}
+
+blockquote {
+  margin: 2rem 0 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--primary);
+  font-style: italic;
+  color: #333;
+}
+
+.footer {
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  color: #777;
+  text-align: center;
+}
+
+/* === Buttons === */
+button, .btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover, .btn:hover {
+  background: #2bb387;
+  box-shadow: 0 0 8px rgba(60, 201, 154, 0.5);
+}
+
+.logout-btn {
+  background: #ff6b6b;
+  margin-left: 10px;
+}
+
+.logout-btn:hover {
+  background: #e65050;
+}
+
+.help-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  font-weight: bold;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.help-btn:hover {
+  background: #2bb387;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(60, 201, 154, 0.7);
+}
+
+/* === Toast Notification === */
+#toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+#toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === Progress Bar === */
+#progress {
+  height: 4px;
+  background: var(--primary);
+  width: 0;
+  transition: width 0.4s ease;
+}
+.risk-box {
+  background: #fffbe6;
+  border-left: 5px solid #f39c12;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.no-data {
+  color: #888;
+  font-style: italic;
+  margin: 16px 0;
+}
+
+.back-link {
+  color: green;
+  text-decoration: underline;
+  font-weight: bold;
+}

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin - Users</title></head>
+<body>
+<h2>Registered Users</h2>
+<ul>
+    {% for user in users %}
+    <li>{{ user.username }}</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('admin_dashboard') }}">← Back</a>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spread Map</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    body {
+      background: #f2f5f9;
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+    }
+
+    .main-card {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    .user-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .user-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .user-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .user-info {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #34495e;
+    }
+
+    .upload-count {
+      background: #ecf0f1;
+      color: #2c3e50;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .file-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .file-card {
+      background: #f9fbfd;
+      border: 1px solid #ddeaf3;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      min-width: 200px;
+      box-shadow: inset 0 0 0.5px #bdc3c7;
+      position: relative;
+    }
+
+    .filename a {
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+    }
+
+    .filename a:hover {
+      text-decoration: underline;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .green { background-color: #d4edda; color: #155724; }
+    .yellow { background-color: #fff3cd; color: #856404; }
+    .red { background-color: #f8d7da; color: #721c24; }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+      color: #2980b9;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-card">
+    <h2>📊 Spread Map Dashboard</h2>
+
+    {% for user, files in graph.items() %}
+      {% if user.username is defined %}
+        <div class="user-card">
+          <div class="user-header">
+            <div class="user-info">👤 {{ user.username }}</div>
+            <div class="upload-count">📂 {{ files|length }} uploads</div>
+          </div>
+          <div class="file-list">
+            {% for f in files %}
+              <div class="file-card">
+                <div class="filename">
+                  📁 
+                  {% if f.content_id is defined %}
+                    <a href="/content/{{ f.content_id }}">{{ f.filename }}</a>
+                  {% else %}
+                    {{ f }}
+                  {% endif %}
+                </div>
+
+                {% if f.metadata is defined %}
+                  {% set score = f.metadata["x-fake-score"] %}
+                  <div>
+                    🎯 Score: 
+                    <span class="badge
+                      {% if score > 1.5 %}red
+                      {% elif score > 0.8 %}yellow
+                      {% else %}green
+                      {% endif %}
+                    ">{{ score }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <a href="/" class="back-link">← Back</a>
+  </div>
+</body>
+</html>

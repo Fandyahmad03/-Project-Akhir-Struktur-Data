@@ -1,0 +1,227 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CONSCIENTIA</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #d4f1f9, #f0fdf4);
+      background-image: url('https://images.unsplash.com/photo-1581091012184-7c4f6f8310f1?fit=crop&w=1600&q=80'); /* Gambar tema anti-hoax */
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(234, 8, 193, 0.95);
+      padding: 20px 30px;
+      color: rgb(0, 0, 0);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: rgb(9, 9, 9); /* Warna putih */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .clock {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #000000;
+    }
+
+    .logout-btn {
+      background-color: #060606;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .logout-btn:hover {
+      background-color: #f0f0f0;
+    }
+
+    .main-card {
+      max-width: 740px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      margin: 60px auto;
+      padding: 40px 50px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .main-card h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #000000;
+      margin-bottom: 25px;
+    }
+
+    .stats, blockquote {
+      text-align: center;
+      margin-bottom: 12px;
+      color: #000000;
+      font-size: 1rem;
+    }
+
+    .tip-box {
+      background: rgb(199, 208, 23), 196, 8, 0.95;
+      padding: 12px 16px;
+      border-left: 5px solid #000000;
+      margin: 24px 0;
+      font-style: italic;
+      color: #070707;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    ul li {
+      margin: 14px 0;
+    }
+
+    ul li a {
+      text-decoration: none;
+      color: #1e8449;
+      font-weight: 600;
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background-color: #f0fdf9;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    ul li a:hover {
+      background-color: #d1f9e7;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    blockquote {
+      margin-top: 25px;
+      font-style: italic;
+      color: #4a4a4a;
+    }
+
+    .help-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #000000;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease;
+    }
+
+    .help-btn:hover {
+      background: #0d0d0d;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌿 CONSCIENTIA</h1>
+    <div class="user">
+      <div class="clock" id="clock">--:--:--</div>
+      {% if session.username %}
+        <span>👤 {{ session.username }}</span>
+        <form method="POST" action="/logout">
+          <button class="logout-btn">Logout</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="main-card">
+    <h2>🚀 Available Actions</h2>
+
+    {% if total_users is not none %}
+    <div class="stats">
+      👥 {{ total_users }} users • 📂 {{ total_contents }} uploads • ⚠️ {{ total_flagged }} flagged
+    </div>
+    {% endif %}
+
+    <div class="tip-box">📌 {{ texts.tip }}</div>
+
+    <ul>
+      {% if not session.username %}
+        <li><a href="/register">📝 Register User</a></li>
+      {% endif %}
+      {% if session.username != "admin" %}
+        <li><a href="/upload-form">📤 Upload Content</a></li>
+      {% endif %}
+      <li><a href="/high-risk">⚠️ View High-Risk Content</a></li>
+      <li><a href="/spread-map">🌐 View Spread Map</a></li>
+      {% if session.username == "admin" %}
+        <li><a href="/admin/dashboard">📊 Admin Dashboard</a></li>
+        <li><a href="/admin/only">👩‍💻 Profil Anggota Kelompok</a></li>
+      {% endif %}
+    </ul>
+
+    <blockquote>
+      “Detection is not about judgment — it's about awareness.” – CONSCIENTIA
+    </blockquote>
+
+    <div class="footer">
+      Use Postman or script to access <b>/upload</b> endpoint manually.
+    </div>
+  </div>
+
+  <a href="https://wa.me/6282338145656" class="help-btn" target="_blank" rel="noopener">Need Help?</a>
+
+  <div id="toast"></div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

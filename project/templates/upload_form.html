@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Content</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    .upload-card {
+      background: #fff;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: seagreen;
+    }
+    form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .submit-btn {
+      background: seagreen;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      margin-top: 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .submit-btn:hover {
+      background: #1e9e6d;
+    }
+  </style>
+</head>
+<body>
+  <div class="upload-card">
+    <h2>📤 Upload Content</h2>
+    <form method="POST">
+      <label for="user_id">Pilih User</label>
+      <select id="user_id" name="user_id" required>
+        {% for id, user in users.items() %}
+          <option value="{{ id }}">{{ user.username }} ({{ id }})</option>
+        {% endfor %}
+      </select>
+
+      <label for="filename">Filename</label>
+      <input type="text" id="filename" name="filename" required>
+
+      <label for="camera">Camera</label>
+      <input type="text" id="camera" name="camera">
+
+      <label for="ai_engine">AI Engine</label>
+      <input type="text" id="ai_engine" name="ai_engine">
+
+      <label for="resolution">Resolution</label>
+      <input type="text" id="resolution" name="resolution">
+
+      <label for="x_fake_score">X-Fake Score</label>
+      <input type="number" step="0.1" id="x_fake_score" name="x_fake_score">
+
+      <button type="submit" class="submit-btn">Upload</button>
+    </form>
+  </div>
+</body>
+</html>

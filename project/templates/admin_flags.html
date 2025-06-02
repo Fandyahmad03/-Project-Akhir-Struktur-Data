@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin - Flagged Contents</title></head>
+<body>
+<h2>Flagged Contents</h2>
+<ul>
+    {% for item in items %}
+    <li>{{ item.filename }} - Score: {{ item.final_score }}</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('admin_dashboard') }}">← Back</a>
+</body>
+</html>

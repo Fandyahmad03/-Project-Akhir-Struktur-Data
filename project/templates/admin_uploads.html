@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin - Uploads</title></head>
+<body>
+<h2>All Uploads</h2>
+<ul>
+    {% for content in contents %}
+    <li>{{ content.filename }} by {{ content.uploader }}</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('admin_dashboard') }}">← Back</a>
+</body>
+</html>

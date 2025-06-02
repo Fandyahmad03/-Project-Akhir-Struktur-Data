@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>High-Risk Contents</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    body {
+      background-color: #f5f8fc;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-card {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #e67e22;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .user-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    }
+
+    .user-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .user-info {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .file-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .file-card {
+      background: #f7fbff;
+      border: 1px solid #e1ecf5;
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      flex: 1 1 260px;
+      max-width: 300px;
+      box-shadow: inset 0 0 0.5px #cfdce6;
+    }
+
+    .filename {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .line {
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .green { background-color: #d4edda; color: #155724; }
+    .yellow { background-color: #fff3cd; color: #856404; }
+    .red { background-color: #f8d7da; color: #721c24; }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-card">
+    <h2>⚠️ High-Risk Contents</h2>
+
+    {% if grouped_items and grouped_items|length > 0 %}
+      {% for username, items in grouped_items.items() %}
+        <div class="user-card">
+          <div class="user-header">
+            <div class="user-info">👤 {{ username }}</div>
+          </div>
+          <div class="file-list">
+            {% for item in items %}
+              <div class="file-card">
+                <div class="filename">📁 {{ item.content.filename }}</div>
+                <div class="line">
+                  🎯 Score:
+                  <span class="badge
+                    {% if item.content.metadata["x-fake-score"] > 1.5 %}red
+                    {% elif item.content.metadata["x-fake-score"] > 0.8 %}yellow
+                    {% else %}green
+                    {% endif %}
+                  ">
+                    {{ item.content.metadata["x-fake-score"] }}
+                  </span>
+                </div>
+                <div class="line">📄 Duplicate: {{ "Yes" if item.duplicate else "No" }}</div>
+                <div class="line">🚩 Anomaly: {{ "Yes" if item.anomaly else "No" }}</div>
+                <div class="line">⚖️ Final Score: {{ item.final_score }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="user-card">
+        <div class="user-info">✅ No high-risk content detected.</div>
+      </div>
+    {% endif %}
+
+    <a href="/" class="back-link">← Back</a>
+  </div>
+</body>
+</html>

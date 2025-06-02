@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Content Detail</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .main-card {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #2980b9;
+    }
+    p {
+      margin: 0.5rem 0;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+      color: #274bae;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-card">
+    <h2>📁 Content Detail</h2>
+    <p><strong>Filename:</strong> {{ content.filename }}</p>
+    <p><strong>Uploader:</strong> {{ content.uploader.username }}</p>
+    <p><strong>Fake Score:</strong> {{ content.metadata["x-fake-score"] }}</p>
+    <p><strong>Camera:</strong> {{ content.metadata["camera"] }}</p>
+    <p><strong>AI Engine:</strong> {{ content.metadata["ai-engine"] }}</p>
+    <p><strong>Resolution:</strong> {{ content.metadata["resolution"] }}</p>
+    <p><strong>Checksum:</strong> {{ content.checksum }}</p>
+
+    <a href="/spread-map" class="back-link">← Back to Spread Map</a>
+  </div>
+</body>
+</html>
